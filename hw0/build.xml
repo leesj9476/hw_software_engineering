@@ -1,0 +1,30 @@
+<project>
+	<property name="dest.dir" value="out/production/hw0/cse4006" />
+	<property name="src.dir" value="src" />
+	<property name="jar.dir" value=".." />
+	<property name="jar.file" value="hw0.jar" />
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${dest.dir}" />
+		<javac srcdir="${src.dir}" destdir="${dest.dir}" includeantruntime="false" />
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar.dir}" />
+		<jar destfile="${jar.dir}/${jar.file}" basedir="${dest.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="cse4006.Main" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run" depends = "clean, compile, jar">
+		<java jar="${jar.dir}/${jar.file}" fork="true" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${dest.dir}" />
+		<delete file="${jar.dir}/${jar.file}" />
+	</target>
+
+</project>

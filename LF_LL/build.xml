@@ -1,0 +1,36 @@
+<project>
+	<property name="dest.dir" value="out" />
+	<property name="src.dir" value="src" />
+	<property name="jar.dir" value=".." />
+	<property name="jar.file" value="LF_LL.jar" />
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${dest.dir}" />
+		<javac srcdir="${src.dir}" destdir="${dest.dir}" includeantruntime="false" />
+	</target>
+
+	<target name="mkjar" depends="compile">
+		<mkdir dir="${jar.dir}" />
+		<jar destfile="${jar.dir}/${jar.file}" basedir="${dest.dir}">
+			<manifest>
+				<attribute name="main-Class" value="hw3/Main" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run">
+		<java jar="${jar.dir}/${jar.file}" fork="true" />
+	</target>
+
+	<target name="all" depends = "clean, compile, mkjar">
+		<java jar="${jar.dir}/${jar.file}" fork="true" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${dest.dir}" />
+		<delete file="${jar.dir}/${jar.file}" />
+		<delete file="workload.txt" />
+		<delete file="result.txt" />
+	</target>
+
+</project>
